@@ -1,21 +1,28 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-int sum;
-const int ARRAY_SIZE = 7;
-int grid [10][10];
+void printArray(string [][3]);
+string arraytest[3][3] = {{"X","X","X"},{"X","X","X"},{"X","X","X"}};
 
 int main()
 {
-    for (int row = 0; row < 10; row++)
-    {
-       for (int col = 0; col < 10; col++)
-       {
-           cout << grid
-       }
-    }
-
+    printArray(arraytest);
     return 0;
+}
+void printArray(string x[][3])
+{
+    for (int i=0;i<3;i++)
+        {
+        for(int j=0;j<3;j++)
+        {
+            cout << x[i][j];
+            cout << "  ";
+        }
+        cout << endl;
+
+
+}
 }
 
