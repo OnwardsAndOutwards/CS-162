@@ -9,6 +9,7 @@
 using namespace std;
 
 int player = 0;
+int turns = 0;
 bool winner = false;
 
 char board[3][3] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
@@ -30,12 +31,13 @@ int main()
 
     showBoard(board);
     getMove();
+    turns++;
     checkDraw(board, player);
     checkWin(board, player);
 
     }
     while(winner != true);
-    cout << "You win!" << endl;
+
 
     return 0;
 }
@@ -80,6 +82,11 @@ int getMove()
         cout << "Invalid entry, try again." << endl;
         cin >> y;
     }
+    if (board[x][y] != ' ')
+    {
+        cout << "Invalid entry, try again." << endl;
+        getMove();
+    }
     if (player == 1)
     {
         board[x][y] = 'X';
@@ -96,9 +103,38 @@ int getMove()
 }
 bool checkWin(char [][3], int)
 {
-    //  switch or if statement checking if three in a row is present
+    int n;
+    for(n=0;n<3;n++) {
+        if(board[n][0]==board[n][1] && board[n][0]==board[n][2]) {
+            if(board[n][0]=='O' || board[n][0]=='X') {
+                winner=true;
+                cout << "You win!" << endl;
+            }
+        }
+    }
+    for(n=0;n<3;n++) {
+        if(board[0][n]==board[1][n]&&board[0][n]==board[2][n]) {
+            if(board[0][n]=='O' || board[0][n]=='X') {
+                winner=true;
+                cout << "You win!" << endl;
+            }
+        }
+    }
+    if(board[0][0]==board[1][1]&&board[0][0]==board[2][2]) {
+        if(board[0][0]=='O' || board[0][0]=='X') {
+            winner=true;
+            cout << "You win!" << endl;
+        }
+    }
+    if(board[0][2]==board[1][1]&&board[1][1]==board[2][2]) {
+        if(board[0][2]=='O' || board[0][2]=='X') {
+            winner=true;
+            cout << "You win!" << endl;
+        }
+    }
 }
-bool checkDraw(char [][3], int)
+bool checkDraw(char [][3], int)  //  I'm so clever
 {
-
+    if (turns>=9)
+    cout << "It's a draw!" << endl;
 }
