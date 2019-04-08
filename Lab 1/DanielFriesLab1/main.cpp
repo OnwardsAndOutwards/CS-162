@@ -5,6 +5,7 @@
 
 
 #include <iostream>
+#include <windows.h>  //  for the system functions
 
 using namespace std;
 
@@ -19,6 +20,7 @@ void showBoard(char [][3]);
 int getMove();
 bool checkWin(char [][3], int);
 bool checkDraw(char [][3], int);
+
 
 int main()
 {
@@ -51,7 +53,7 @@ void showBoard(char board[][3])
     cout << "The board looks like this:\n\n" << endl;
     for (int i=0;i<3;i++)
         {
-        for(int j=0;j<3;j++)
+        for(int j=0;j<3;j++)  // Yo dawg I heard you like loops so I put some loops in your loop
         {
             cout << board[i][j];
             cout << "  ";
@@ -135,6 +137,6 @@ bool checkWin(char [][3], int)
 }
 bool checkDraw(char [][3], int)  //  I'm so clever
 {
-    if (turns>=9)
+    if (turns>=9)  //  Way lazier than the first thing I tried.
     cout << "It's a draw!" << endl;
 }
