@@ -6,7 +6,8 @@ bool linear_search(int arr[], int arr_size, int target);
 bool binary_search(int arr[], int arr_size, int target);
 int main()
 {
-
+    int values[100000];
+    8-
     return 0;
 }
 bool linear_search(int arr[], int arr_size, int target)
