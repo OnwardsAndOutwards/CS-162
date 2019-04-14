@@ -12,15 +12,18 @@ using namespace std;
 //  Global variables and constants
 
 const int MAX_SIZE = 16;           // change me to make the dungeon larger or smaller
-char dungeon[MAX_SIZE][MAX_SIZE];  // dungeon
+char dungeon[MAX_SIZE][MAX_SIZE];
+int playerX, playerY;
+char playerMove;
 
 //  Functions
 
-void createBoard();
-void createDungeon();
+char createDungeon(char [][MAX_SIZE], int);
+void displayDungeon(char [][MAX_SIZE]);
+char getMove(int x, int y);
 void randomTrap();
-int getMove(char playerMove);
-bool checkMove(int playerY, int playerX);
+int checkMove(char playerMove);
+bool checkWin(int playerY, int playerX);
 bool checkDeath(int playerY, int playerX);
 void clearScreen();
 
@@ -29,8 +32,8 @@ void clearScreen();
 int main()
 
 {
-    char playerMove;
-    createDungeon();
+
+    createDungeon(dungeon, MAX_SIZE);
     randomTrap();
     bool gameOver = false;
     cout << "   You are the heroic Dan: D \n\n";
@@ -43,12 +46,9 @@ int main()
     {
 
 
-        createBoard();
+        displayDungeon(dungeon);
 
-        cout << "\n   Pick a direction to move:\n\n";
-        cout << "             w = up\n";
-        cout << " a = left    s = down    d = right\n";
-        cin >> playerMove;
+        getMove(playerX, playerY);
         playerMove = (tolower(playerMove));  //  in case the user input an upper case letter
         bool endGame = false;
         while (!endGame)
@@ -67,13 +67,13 @@ int main()
                 cin >> playerMove;
             }
         }
-        randomTrap();                      //    If uncommented, more traps appear every turn
-        gameOver = getMove(playerMove);
+//        randomTrap();                      //    If uncommented, more traps appear every turn
+        gameOver = checkMove(playerMove);
         playerMove = '.';
     }
 }
 
-void createDungeon()  //  At first, there was only darkness
+char createDungeon(char [][MAX_SIZE], int)  //  At first, there was only darkness
 {
     int playerX = 0,playerY = 0;
 
@@ -95,10 +95,9 @@ void createDungeon()  //  At first, there was only darkness
 
 //  Places our hero in the middle of the board
     dungeon[MAX_SIZE/2][MAX_SIZE/2] = 'D';
-
 }
 
-void createBoard()
+void displayDungeon(char [][MAX_SIZE])
 {
     clearScreen();
 
@@ -112,7 +111,14 @@ void createBoard()
         cout << "\n";
     }
 }
-void randomTrap()
+char getMove(int x, int y)  //  Gets the move!
+{
+    cout << "\n   Pick a direction to move:\n\n";
+    cout << "             w = up\n";
+    cout << " a = left    s = down    d = right\n";
+    cin >> playerMove;
+}
+void randomTrap()  //  This function places a new trap every time it is called.
 {
     int playerX, playerY;
     bool ok = false;
@@ -127,7 +133,7 @@ void randomTrap()
         }
     }
 }
-int getMove(char playerMove)
+int checkMove(char playerMove)
 {
     int playerX,playerY;
 
@@ -165,7 +171,7 @@ int getMove(char playerMove)
     }
 
 //  Check if you win
-    if (checkMove(playerY,playerX) == true)
+    if (checkWin(playerY,playerX) == true)
     {
         cout << "\n Congrats!  You found the treasure. \n";
         cout << "  You're a shame to archeologists   \n";
@@ -185,13 +191,13 @@ int getMove(char playerMove)
     }
 }
 
-bool checkMove(int playerY, int playerX)  //  If you're on the treasure you win!
+bool checkWin(int playerY, int playerX)  //  If you're on the treasure you win!
 {
 
     if(dungeon[playerY][playerX] == 'X')
     {
         return true;
-        createBoard();
+        displayDungeon(dungeon);
     }
     else
     {
@@ -203,14 +209,17 @@ bool checkDeath(int playerY, int playerX)  //  Its a trap!
     if(dungeon[playerY][playerX] == 'O')
     {
         return true;
-        createBoard();
+        displayDungeon(dungeon);
     }
     else
     {
         return false;
     }
 }
-void clearScreen()
+void clearScreen()  //  Clears the screen
 {
     cout << string( MAX_SIZE, '\n' );
 }
+
+//  RIP my weekend
+
