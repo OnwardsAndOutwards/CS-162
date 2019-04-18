@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1555607419 source:c:\users\student\desktop\cs162\lab 3\danielfriesproject3\main.cpp
+	<iostream>
+	"recursion.h"
+
+1555607416 c:\users\student\desktop\cs162\lab 3\danielfriesproject3\recursion.h
+	<string>
+
